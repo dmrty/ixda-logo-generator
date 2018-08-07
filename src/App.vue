@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-12">
   <div class="preview">
-    <svg width="400px" height="250px" viewBox="0 0 400 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg id="svg_export" width="400px" height="250px" viewBox="0 0 400 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <title>IxDA Logo</title>
       <defs></defs>
       <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -59,7 +59,7 @@
   </div>
   <div class="row">
     <div class="col-6">
-      <button class="btn btn-primary" v-on:click="generateSVG" >Generate SVG</button>
+      <button class="btn btn-primary" v-on:click="generatesvg" >Generate SVG</button>
     </div>
   </div>
 
@@ -80,14 +80,16 @@ export default {
     };
   },
   methods: {
-    generateSVG(event) {
-      $;
+    generatesvg() {
       // `this` inside methods points to the Vue instance
-      alert(`Hello ${this.name}!`);
-      // `event` is the native DOM event
-      if (event) {
-        alert(event.target.tagName);
-      }
+      alert('Hello');
+      var svg = document.getElementById("svg_export");
+      var serializer = new XMLSerializer();
+      var svg_blob = new Blob([serializer.serializeToString(svg)],
+                            {'type': "image/svg+xml"});
+      var url = URL.createObjectURL(svg_blob);
+
+      var svg_win = window.open(url, "svg_win");
     },
   },
 };
